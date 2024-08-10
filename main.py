@@ -7,7 +7,17 @@ from keras import layers, models
 from PIL import Image
 
 # Define the path to your local images directory
-images_directory = "C:\\Users\\RK Niranjan\\Downloads\\images"
+import gzip
+f = gzip.open('/content/drive/MyDrive/Colab Notebooks/train-labels-idx1-ubyte.gz','r')
+
+image_size = 28
+num_images = 5
+
+import numpy as np
+f.read(16)
+buf = f.read(image_size * image_size * num_images)
+data = np.frombuffer(buf, dtype=np.uint8).astype(np.float32)
+data = data.reshape(num_images, image_size, image_size, 1)
 
 
 # Function to load and preprocess images from a directory
